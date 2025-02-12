@@ -1,0 +1,8 @@
+,d = 2,d = 4,d = 8,d = 16
+PPW-AVG,$2.217 \times 10^{-1} \pm 6.079 \times 10^{-3}$,$2.21 \times 10^{-1} \pm 5.183 \times 10^{-3}$,$2.211 \times 10^{-1} \pm 5.677 \times 10^{-3}$,$2.204 \times 10^{-1} \pm 5.957 \times 10^{-3}$
+PPW-EMA,$2.219 \times 10^{-1} \pm 5.999 \times 10^{-3}$,$2.212 \times 10^{-1} \pm 5.167 \times 10^{-3}$,$2.212 \times 10^{-1} \pm 5.674 \times 10^{-3}$,$2.205 \times 10^{-1} \pm 5.975 \times 10^{-3}$
+RRM_Linear_Regression,$4.975 \times 10^{-1} \pm 9.023 \times 10^{-2}$,$5.57 \times 10^{-1} \pm 1.093 \times 10^{-1}$,$6.091 \times 10^{-1} \pm 1.45 \times 10^{-1}$,$7.399 \times 10^{-1} \pm 1.728 \times 10^{-1}$
+RGD_Linear_Regression,$7.566 \times 10^{-1} \pm 4.942 \times 10^{-2}$,$6.654 \times 10^{-1} \pm 2.394 \times 10^{-2}$,$5.84 \times 10^{-1} \pm 4.523 \times 10^{-2}$,$5.303 \times 10^{-1} \pm 2.903 \times 10^{-2}$
+Two-Stage Approach,$2.819 \times 10^{} \pm 4.438 \times 10^{}$,$6.318 \times 10^{} \pm 6.79 \times 10^{}$,$1.302 \times 10^{1} \pm 9.192 \times 10^{}$,$2.297 \times 10^{1} \pm 1.649 \times 10^{1}$
+PerGD,$7.831 \times 10^{} \pm 3.815 \times 10^{}$,$1.58 \times 10^{1} \pm 1.239 \times 10^{1}$,$1.961 \times 10^{1} \pm 1.431 \times 10^{1}$,$1.222 \times 10^{1} \pm 8.303 \times 10^{}$
+DFO,$1.467 \times 10^{1} \pm 3.777 \times 10^{}$,$4.329 \times 10^{1} \pm 8.831 \times 10^{}$,$8.096 \times 10^{1} \pm 2.052 \times 10^{1}$,$1.42 \times 10^{2} \pm 4.214 \times 10^{1}$
