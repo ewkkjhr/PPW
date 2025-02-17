@@ -1,0 +1,8 @@
+,d = 2,d = 4,d = 8,d = 16
+RRM Linear Regression,$1.979 \times 10^{1} \pm 3.617 \times 10^{}$,$8.181 \times 10^{} \pm 1.077 \times 10^{}$,$6.218 \times 10^{} \pm 1.021 \times 10^{-1}$,$6.3 \times 10^{} \pm 8.231 \times 10^{-2}$
+RGD Linear Regression,$2.614 \times 10^{-2} \pm 1.033 \times 10^{-2}$,$2.614 \times 10^{-2} \pm 1.034 \times 10^{-2}$,$2.613 \times 10^{-2} \pm 1.034 \times 10^{-2}$,$2.613 \times 10^{-2} \pm 1.035 \times 10^{-2}$
+Two-Stage Approach,$7.831 \times 10^{} \pm 7.393 \times 10^{-1}$,$7.782 \times 10^{} \pm 1.005 \times 10^{}$,$7.792 \times 10^{} \pm 7.146 \times 10^{-1}$,$7.895 \times 10^{} \pm 9.743 \times 10^{-1}$
+PerfGD,$7.05 \times 10^{} \pm 3.376 \times 10^{}$,$8.699 \times 10^{} \pm 3.984 \times 10^{}$,$8.742 \times 10^{} \pm 3.885 \times 10^{}$,$7.974 \times 10^{} \pm 3.711 \times 10^{}$
+RRM Neural Networks,$6.41 \times 10^{} \pm 6.573 \times 10^{-1}$,$6.339 \times 10^{} \pm 6.247 \times 10^{-1}$,$6.467 \times 10^{} \pm 5.8 \times 10^{-1}$,$6.201 \times 10^{} \pm 7.361 \times 10^{-1}$
+$\mathrm{DFO(\lambda)}$,$8.05 \times 10^{-1} \pm 1.352 \times 10^{}$,$8.044 \times 10^{-1} \pm 1.351 \times 10^{}$,$8.045 \times 10^{-1} \pm 1.351 \times 10^{}$,$8.043 \times 10^{-1} \pm 1.35 \times 10^{}$
+PPW,$4.518 \times 10^{-4} \pm 1.122 \times 10^{-3}$,$1.318 \times 10^{-3} \pm 5.756 \times 10^{-3}$,$2.25 \times 10^{-4} \pm 7.868 \times 10^{-4}$,$8.354 \times 10^{-4} \pm 3.162 \times 10^{-3}$

@@ -36,7 +36,6 @@ def PerformativeGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_fea
                 if map == 1:
                     X,y = linear_data_generation(n = n)
                     X_strat,y_strat = data_distribution_map1(X, y,mu = d, model = model, strat_features = strat_features)
-                    # X_strat = preprocess_data_shift(X_strat, X, strat_features, n)
                     
                 if map == 2:
                     X_strat,y_strat = data_distribution_map2(X, y,mu = d, model = model)
@@ -44,7 +43,6 @@ def PerformativeGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_fea
                 # evaluate initial loss on the current distribution
                 pred_label = model.predict(X_strat)
                 mse = np.sqrt(mean_squared_error(y_strat, pred_label))
-                # mse = mean_absolute_error(y_strat, pred_label)
                 mse_list_start[i,k,t] = mse
                 
                 # learn on induced distribution
@@ -60,7 +58,6 @@ def PerformativeGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_fea
                 # evaluate final loss on the current distribution
                 pred_label_new = model.predict(X_strat)
                 mse = np.sqrt(mean_squared_error(y_strat, pred_label_new))
-                # mse = mean_absolute_error(y_strat, pred_label_new)
                 mse_list_end[i,k,t] = mse
         print('-'*50)
 

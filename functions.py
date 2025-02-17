@@ -120,7 +120,7 @@ def preprocess_data_shift(X_strat, X, strat_features, n):
     X_temp = X_combined[:n, :]
     return X_temp
 
-def plot_step(i, offset, start_list, end_list, method_name, colors,markers,num_iters,c):
+def plot_step(i, offset, start_list, end_list, method_name, colors,markers,num_iters,c,linewidth = 1):
     if i == 1:
         plt.plot([i, i+offset], [start_list[c,i], end_list[c,i]],color=colors, marker=markers, linestyle='-', label=method_name)
     else:
@@ -128,19 +128,19 @@ def plot_step(i, offset, start_list, end_list, method_name, colors,markers,num_i
     if i < num_iters-1:
         plt.plot([i+offset, i+1], [end_list[c,i], start_list[c,i+1]], 'g:')
 
-def plot_mse(mse_list_start,mse_list_start_std,colors,markers,linestyles,method_name,std=1):
+def plot_mse(mse_list_start,mse_list_start_std,colors,markers,linestyles,method_name,std=1,linewidth = 1):
     if method_name == 'PPW-AVG':
-        plt.plot(range(len(mse_list_start)),mse_list_start,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=1, markersize=9,alpha=1)
+        plt.plot(range(len(mse_list_start)),mse_list_start,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=linewidth, markersize=9,alpha=1)
     else:
-        plt.plot(range(len(mse_list_start)),mse_list_start,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=1, markersize=6,alpha=1)
+        plt.plot(range(len(mse_list_start)),mse_list_start,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=linewidth, markersize=6,alpha=1)
     if std == 1:
         plt.fill_between(range(len(mse_list_start)), mse_list_start - mse_list_start_std, mse_list_start + mse_list_start_std, color= colors, alpha=0.2, linewidth=0)
 
-def plot_model_gap(model_gaps_avg,model_gaps_std,colors,markers,linestyles,method_name,std=1):
+def plot_model_gap(model_gaps_avg,model_gaps_std,colors,markers,linestyles,method_name,std=1,linewidth = 1):
     if method_name == 'PPW-AVG':
-        plt.plot(range(len(model_gaps_avg)),model_gaps_avg,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=1, markersize=9,alpha=1)
+        plt.plot(range(len(model_gaps_avg)),model_gaps_avg,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=linewidth, markersize=9,alpha=1)
     else:
-        plt.plot(range(len(model_gaps_avg)),model_gaps_avg,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=1, markersize=6,alpha=1)
+        plt.plot(range(len(model_gaps_avg)),model_gaps_avg,color=colors, marker=markers, linestyle=linestyles,label=method_name, linewidth=linewidth, markersize=6,alpha=1)
     if std == 1:
         plt.fill_between(range(len(model_gaps_avg)), model_gaps_avg - model_gaps_std, model_gaps_avg + model_gaps_std, alpha=0.2,color=colors, linewidth=0)
 

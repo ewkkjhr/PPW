@@ -37,7 +37,6 @@ def PPNN(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np
                 if map == 1:
                     X,y = linear_data_generation(n = n)
                     X_strat,y_strat = data_distribution_map1(X, y,mu = d, model = model, strat_features = strat_features)
-                    # X_strat = preprocess_data_shift(X_strat, X, strat_features, n)
                     
                 if map == 2:
                     X_strat,y_strat = data_distribution_map2(X, y,mu = d, model = model)
@@ -55,9 +54,6 @@ def PPNN(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np
                 theta_full_new = np.concatenate([matrix.flatten() for matrix in theta_new])
                 theta_full = np.concatenate([matrix.flatten() for matrix in theta])
                 model_gaps[i,k,t] = np.linalg.norm(theta_full_new-theta_full)
-                # for q in range(len(theta_new)):
-                #     gap += np.linalg.norm(theta[q]-theta_new[q])
-                # model_gaps[i,k,t] = gap
                 theta = copy.deepcopy(theta_new)
 
                 # evaluate final loss on the current distribution

@@ -47,7 +47,6 @@ def method_1(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,\
                 if map == 1:
                     X,y = linear_data_generation(n = n)
                     X_strat,y_strat = data_distribution_map1(X, y,mu = d, model = ridge_model, strat_features = strat_features)
-                    # X_strat = preprocess_data_shift(X_strat, X, strat_features, n)
                     
                 if map == 2:
                     X_strat,y_strat = data_distribution_map2(X, y,mu = d, model = ridge_model)
@@ -55,18 +54,16 @@ def method_1(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,\
                 # evaluate initial loss on the current distribution
                 hat_y = ridge_model.predict(X_strat)
                 mse = np.sqrt(mean_squared_error(y_strat, hat_y))
-                # mse = mean_absolute_error(y_strat, hat_y)
                 mse_list_start[i,k,t] = mse
 
                 # # learn on induced distribution
                 gamma = max(1,alpha_1*varepsilon_temp)
-                ridge_model_new = Ridge(alpha = gamma/2)#, fit_intercept=False)
+                ridge_model_new = Ridge(alpha = gamma/2)
                 ridge_model_new.fit(X_strat, y_strat)
 
                 # evaluate final loss on the current distribution
                 hat_y_new = ridge_model_new.predict(X_strat)
                 mse = np.sqrt(mean_squared_error(y_strat, hat_y_new))
-                # mse = mean_absolute_error(y_strat, hat_y_new)
                 mse_list_end[i,k,t] = mse
 
                 # keep track of statistics
@@ -74,8 +71,7 @@ def method_1(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,\
                 varepsilon_star,norm_w_w = est_varepsilon(X_old,y_old,X_strat,y_strat,model_list[i][k],norm_w_w)
                 varepsilon.append(varepsilon_star)
                 varepsilon_no_outlier = remove_outliers_iqr(varepsilon)
-                varepsilon_temp = np.max(varepsilon_no_outlier) #max((0.1*f)/n,np.mean(varepsilon_no_outlier))
-                # varepsilon_temp = np.max(varepsilon)
+                varepsilon_temp = np.max(varepsilon_no_outlier) 
 
                 model_gaps[i,k,t] = np.linalg.norm(ridge_model_new.coef_-ridge_model.coef_)
 

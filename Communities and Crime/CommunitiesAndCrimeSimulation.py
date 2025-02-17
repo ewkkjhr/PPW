@@ -20,7 +20,7 @@ from Algorithm.alg_PerGD import PerformativeGD
 # problems parameters
 seed_value = 42
 num_iters = 100
-d_list = [2,4,8,16] #2,4,6,8,
+d_list = [2,4,8,16] 
 num_experiments = 10
 map = 2
 np.random.seed(seed_value)
@@ -32,8 +32,6 @@ initial = initial.drop('communityname', axis=1)
 initial = initial.drop('fold', axis=1)
 initial = initial.drop('state', axis=1)
 y = initial['ViolentCrimesPerPop'].values.reshape(-1, 1)
-# scaler = StandardScaler()
-# y = scaler.fit_transform(y)
 initial = initial.drop('ViolentCrimesPerPop', axis=1)
 X = initial.values
 

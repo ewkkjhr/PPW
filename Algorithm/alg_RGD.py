@@ -8,39 +8,31 @@ from sklearn.metrics import mean_squared_error,r2_score,mean_absolute_error
 import copy
 from sklearn.linear_model import Ridge
 
-# # problems parameters
-# num_iters = 25
-# d_list = [10,1000,10000]
-
 class LinearRegression_one_iter_gd:
     def __init__(self, learning_rate=0.01):
         self.learning_rate = learning_rate
         self.theta = None
-        self.coef_ = None  # 参数，包括截距项
+        self.coef_ = None 
 
     def fit(self, X, y,model = None):
-        X_b = np.c_[np.ones((X.shape[0], 1)), X]  # 在X的第一列添加1
-        m = X_b.shape[0]  # 样本数量
+        X_b = np.c_[np.ones((X.shape[0], 1)), X] 
+        m = X_b.shape[0]  
         if y.ndim == 1:
             y = y.reshape(-1, 1)
 
         if model is None and self.theta is None:
-            # LR = Ridge(alpha = 0, fit_intercept=False)
-            # LR.fit(X_b, y)
-            # self.theta = LR.theta.T.copy() #+ np.random.normal(0, 0.05, size=RR.theta.T.shape) #np.random.randn(X_b.shape[1], 1)  
-            self.theta = np.random.randn(X_b.shape[1], 1) # 随机初始化参数
+            self.theta = np.random.randn(X_b.shape[1], 1)
         gradients = (2 / m) * X_b.T.dot(X_b.dot(self.theta) - y)
-        threshold = 100  # 设置阈值
+        threshold = 100  
         norm = np.linalg.norm(gradients)
         if norm > threshold:
             gradients = gradients * (threshold / norm)
 
         self.theta -= self.learning_rate * gradients  
-        self.coef_ = self.theta[1:].T  # 参数，不包括截距项
-
+        self.coef_ = self.theta[1:].T 
     def predict(self, X):
-        X_b = np.c_[np.ones((X.shape[0], 1)), X]  # 添加截距项
-        return X_b.dot(self.theta)  # 预测值
+        X_b = np.c_[np.ones((X.shape[0], 1)), X] 
+        return X_b.dot(self.theta)  
     
 
 def RGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np.array([1, 6, 8])-1,\
@@ -76,14 +68,12 @@ def RGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np.
                 if map == 1:
                     X,y = linear_data_generation(n = n)
                     X_strat,y_strat = data_distribution_map1(X, y,mu = d, model = RR, strat_features = strat_features)
-                    # X_strat = preprocess_data_shift(X_strat, X, strat_features, n)
                 
                 if map == 2:
                     X_strat,y_strat = data_distribution_map2(X, y,mu = d, model = RR)
 
                 # evaluate initial loss on the current distribution
                 pred_label_old = RR.predict(X_strat)
-                # mse = mean_squared_error(y_strat, pred_label_old)
                 mse = np.sqrt(mean_absolute_error(y_strat, pred_label_old))
                 mse_list_start[i,k,t] = mse
 
@@ -95,7 +85,6 @@ def RGD(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np.
 
                 # evaluate final loss on the current distribution
                 pred_label = RR.predict(X_strat)
-                # mse = mean_squared_error(y_strat, pred_label)
                 mse = np.sqrt(mean_absolute_error(y_strat, pred_label))
                 mse_list_end[i,k,t] = mse
 

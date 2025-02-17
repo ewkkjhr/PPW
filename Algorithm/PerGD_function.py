@@ -63,8 +63,7 @@ def approx_grad_beta(betas, thetas):
     dbetas = np.array([b - betas[-1] for b in betas])
     dthetas = np.array([t - thetas[-1] for t in thetas], dtype = float)
     
-    return np.linalg.pinv(dthetas) @ dbetas #np.linalg.pinv(dthetas.reshape(-1, 1)) @ dbetas
-
+    return np.linalg.pinv(dthetas) @ dbetas
 def grad2(X, Y, betas, thetas):
     """
     X, Y should be the data resulting from thetas[-1]

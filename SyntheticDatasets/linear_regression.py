@@ -19,7 +19,7 @@ methods = ['RRM Linear Regression','RGD Linear Regression','Two-Stage Approach',
 # problems parameters
 seed_value = 42
 num_iters = 100
-d_list = [2,4,8,16] #,1000,10000 10,100,1000,60,80,100
+d_list = [2,4,8,16] 
 num_experiments = 10
 map = 1
 folder_path = 'SyntheticDatasets/result/'

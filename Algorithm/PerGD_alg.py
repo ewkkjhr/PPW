@@ -5,14 +5,10 @@ from Algorithm.PerGD_function import clip,beta,loss,performative_loss,grad1,appr
 from sklearn.linear_model import LogisticRegression, Ridge
 
 class PerGD:
-    def __init__(self,H = 100, lr = 0.01):
-        # self.s1 = 0.5
+    def __init__(self,H = 2, lr = 0.01):
         self.H  = H
-        self.lr = lr # learning rate
-        # self.history = deque()
-        # self.history.append(self.theta.copy())
+        self.lr = lr 
         self.grad_fs = deque()
-        # self.g2s     = deque()
         self.thetas = deque(maxlen = H + 1)
         self.means  = deque(maxlen = H + 1)
         self.betas  = deque(maxlen = H + 1)

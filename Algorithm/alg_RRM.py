@@ -12,18 +12,16 @@ import copy
 def RRM(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np.array([1, 6, 8])-1,\
         num_experiments = 10,seed_value = 42):
     
-    # X = np.c_[np.ones((X.shape[0], 1)), X]
     method_name = 'RRM_Linear_Regression'
     num_d  = len(d_list)
     n = X.shape[0]
     d = X.shape[1]
 
     print('RRM Linear Regression')
-    RR = Ridge(alpha = 0) #, fit_intercept=False)
+    RR = Ridge(alpha = 0)
     RR.fit(X, y)
 
     RR_int = RR
-    # theta_int = np.copy(LR.coef_)
     model_gaps         = np.zeros((num_experiments, num_d, num_iters)) #[[[] for _ in range(num_d)] for _ in range(num_experiments)]
     mse_list_start     = np.zeros((num_experiments, num_d, num_iters)) #[[[] for _ in range(num_d)] for _ in range(num_experiments)]
     mse_list_end       = np.zeros((num_experiments, num_d, num_iters)) #[[[] for _ in range(num_d)] for _ in range(num_experiments)]
@@ -41,25 +39,22 @@ def RRM(X,y,num_iters = 25,d_list = [10,1000,10000],map = 1,strat_features = np.
                 if map == 1:
                     X,y = linear_data_generation(n = n)
                     X_strat,y_strat = data_distribution_map1(X, y,mu = d, model = RR, strat_features = strat_features)
-                    # X_strat = preprocess_data_shift(X_strat, X, strat_features, n)
                 
                 if map == 2:
                     X_strat,y_strat = data_distribution_map2(X, y,mu = d, model = RR)
 
                 # evaluate initial loss on the current distribution
                 pred_label_old = RR.predict(X_strat)
-                # mse = mean_squared_error(y_strat, pred_label_old)
                 mse = np.sqrt(mean_absolute_error(y_strat, pred_label_old))
                 mse_list_start[i,k,t] = mse
 
                 # learn on induced distribution
-                RR_new = Ridge(alpha = 0) #, fit_intercept=False)
+                RR_new = Ridge(alpha = 0) 
                 RR_new.fit(X_strat, y_strat)
                 model_gaps[i,k,t] = np.linalg.norm(RR_new.coef_-RR.coef_)
 
                 # evaluate final loss on the current distribution
                 pred_label = RR_new.predict(X_strat)
-                # mse = mean_squared_error(y_strat, pred_label)
                 mse = np.sqrt(mean_absolute_error(y_strat, pred_label))
                 mse_list_end[i,k,t] = mse
                 

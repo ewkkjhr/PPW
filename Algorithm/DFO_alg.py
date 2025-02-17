@@ -10,8 +10,6 @@ class DFO_GD:
         self.config = config
         self.metric = {'iter': [], 'gap': []}
         self.output_path = './res-new/'
-        # self.sample_time = self.create_sampling_time()
-        # self.max_record_time = self.sample_time[-1]
         
         self.rho = 0.5
         self.forgetting_factor = forgetting_factor # corresponding to lambda in paper
@@ -45,22 +43,16 @@ class DFO_GD:
             self.tau_k = max(1, int(temp))
             self.new_uk = self.sample_unit_sphere(d) # direction
             self.delta_k = self.step_size('delta')
-            # self.inner_iter = 1
             
         if self.inner_iter < self.tau_k:
-            # self.new_uk = self.sample_unit_sphere(d) # direction
-            # new_sample = self.problem.sample_from_AR(self.pert_theta)
-            # new_sample = self.problem.sample_from_stationary_dist(pert_theta)
             self.sample_count += 1
 
             grd = d / self.delta_k * ((self.ell_loss(self.pert_theta, X_b,y)/n)/d) * (self.new_uk )
-            # grd = self.problem.dim / delta_k * self.problem.expect_loss(pert_theta) * uk  #如果用真正的grd是可以收敛的
-
             # update theta
             rate = 0.01
             lr = (self.forgetting_factor ** (((self.tau_k - self.inner_iter))))
             self.theta = np.clip(self.theta - self.step_size('eta') * lr * grd * 0.1,-0.05,1) 
-            self.pert_theta = self.theta + self.delta_k * self.new_uk * 0.02 #np.clip(self.theta + self.delta_k * self.new_uk*0.01,0,1)
+            self.pert_theta = self.theta + self.delta_k * self.new_uk * 0.02 
             self.inner_iter += 1
 
         if self.inner_iter == self.tau_k:
@@ -89,7 +81,6 @@ class DFO_GD:
         LR = Ridge(alpha = 1, fit_intercept=False)
         LR.fit(X_b, y)
         init_theta = LR.coef_.reshape(-1)
-        # init_theta = np.random.rand(d)
         sample_z = np.zeros((config.batch, d))
         return init_theta, sample_z
     
@@ -102,48 +93,7 @@ class DFO_GD:
             print('输入参数错误')
             sys.exit(1)
         return stepsize
-    # def fit_innner_loop(self, tau_k, uk, delta_k, bar):
 
-    #     pert_theta = self.theta + delta_k * uk
-    #     new_sample = self.problem.sample_from_AR(pert_theta)
-    #     # new_sample = self.problem.sample_from_stationary_dist(pert_theta)
-    #     self.sample_count += 1
-
-
-    #     grd = self.problem.dim / delta_k * self.problem.ell_loss(pert_theta, new_sample) * uk
-    #     # grd = self.problem.dim / delta_k * self.problem.expect_loss(pert_theta) * uk  #如果用真正的grd是可以收敛的
-
-    #     # update theta
-    #     self.theta = self.theta - self.step_size('eta') * (self.forgetting_factor ** (tau_k - self.inner_iter)) * grd
-
-    #     if np.linalg.norm(self.theta) >= 1e8: # for debug use
-    #         print('Error! There are some issue in programming')
-    #         exit(0)
-
-    #     if self.sample_time != [] and self.sample_count == self.sample_time[0]:
-    #         self.sample_time.pop(0)
-    #         self.record()
-    #         # if self.rank == 0:
-    #         #     self.info_bar(err=self.metric['gap'][-1])
-    #         if self.sample_count == self.max_record_time:
-    #             self.flag = True
-
-    #     bar.update(1)
-    #     if self.rank == 0:
-    #         bar.set_description(f'rho = {self.forgetting_factor}, '
-    #                             f'Current Sample Num {self.sample_count}, gap {self.metric["gap"][-1]:.5f}')
-
-    # def create_sampling_time(self):
-    #     """生成对数刻度或者正常刻度,sample_num记录metric运行的时间点"""
-    #     if self.config.log_scale:
-    #         L = np.logspace(0, self.config.max_iter_log, self.config.num_points, endpoint=False,
-    #                         dtype=int).tolist()  # L stores the time point when we sample
-    #         sample_num = list(OrderedDict.fromkeys(L))  # 去掉L中重复的元素(note: L中的元素都是non-decreasing的)
-    #     else:
-    #         sample_num = list(range(0, self.config.max_iter_num, self.config.step))  # 选取测算measurement的时间点
-    #         # 这里原本时用range(0, max_iter)的，但是由于DFO执行时while-loop, self.iter=0的时候会出错
-    #     return sample_num
-    
 class AlgoConfig(object):
     """定义一个关于算法的默认设置类"""
 
